@@ -1,0 +1,28 @@
+DISCRIPTION:
+A digital temperature display system uses a temperature sensor to measure real-time temperature and shows the output on an LCD screen. It helps in monitoring environmental or device temperature easily.
+CODING:
+#include <LiquidCrystal.h>
+#include <DHT.h>
+
+#define DHTPIN 2         // Sensor pin
+#define DHTTYPE DHT11    // DHT11 Sensor
+
+LiquidCrystal lcd(7, 6, 5, 4, 3, 8);  
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  lcd.begin(16, 2);
+  dht.begin();
+  lcd.print("Temp Display");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  float temp = dht.readTemperature();  // Read temp in °C
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temp);
+  lcd.print(" C");
+  delay(1000);
+}
